@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Speech Emotion Recognition</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Human Emotion Recognition Through Speech</h1>
+
+        <p class="subtitle">
+            Upload a speech audio file and let AI detect the emotion.
+        </p>
+
+        <div class="upload-box">
+
+            <h2>🎵 Upload Audio</h2>
+
+            <input 
+                type="file" 
+                id="audioFile"
+                accept=".wav,audio/wav"
+            >
+
+            <p id="fileName">No file selected</p>
+
+            <button id="analyzeBtn">
+                Analyze Emotion
+            </button>
+
+        </div>
+
+       <div class="result-box">
+
+    <h2>Detected Emotion</h2>
+
+    <div id="emotion">
+        —
+    </div>
+
+    <p>
+        Confidence:
+        <span id="confidence">—</span>
+    </p>
+
+    <div class="probability-section">
+
+        <h3>Emotion Probabilities</h3>
+
+        <div id="probabilities"></div>
+
+    </div>
+
+</div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
