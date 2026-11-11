@@ -1,117 +1,497 @@
+
+/* =========================================
+   1. GLOBAL SETTINGS
+========================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
-    min-height: 100vh;
+:root {
+    --bg-dark: #080d1b;
+    --bg-card: rgba(20, 30, 55, 0.75);
+    --border: rgba(148, 163, 184, 0.15);
+    --primary: #22d3ee;
+    --secondary: #8b5cf6;
+    --text: #f8fafc;
+    --muted: #94a3b8;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at 15% 10%, #172554 0, transparent 35%),
+        radial-gradient(circle at 85% 80%, #312e81 0, transparent 35%),
+        var(--bg-dark);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* =========================================
+   2. MAIN CONTAINER
+========================================= */
+
 .container {
-    width: 90%;
-    max-width: 900px;
+    width: 92%;
+    max-width: 1050px;
     margin: auto;
-    padding: 60px 20px;
+    padding: 65px 0;
     text-align: center;
 }
 
 h1 {
-    font-size: 38px;
+    font-size: clamp(28px, 5vw, 45px);
+    font-weight: 800;
+    line-height: 1.25;
+    background: linear-gradient(90deg, #ffffff, #22d3ee, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     margin-bottom: 15px;
 }
 
 .subtitle {
-    color: #94a3b8;
-    margin-bottom: 40px;
+    color: var(--muted);
+    font-size: 17px;
+    margin-bottom: 35px;
 }
 
+/* =========================================
+   3. COMMON CARDS
+========================================= */
+
 .upload-box,
+.record-box,
 .result-box {
-    background: #1e293b;
-    padding: 30px;
-    border-radius: 15px;
-    margin-bottom: 25px;
-    border: 1px solid #334155;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 35px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.upload-box:hover,
+.record-box:hover,
+.result-box:hover {
+    border-color: rgba(34, 211, 238, 0.35);
+    transform: translateY(-3px);
 }
 
 .upload-box h2,
+.record-box h2,
 .result-box h2 {
-    margin-bottom: 20px;
+    font-size: 25px;
+    margin-bottom: 12px;
+}
+
+.upload-box p,
+.record-box p {
+    color: var(--muted);
+}
+
+/* =========================================
+   4. LIVE RECORDING - MAIN FEATURE
+========================================= */
+
+.record-box {
+    border: 1px solid rgba(34, 211, 238, 0.45);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(34, 211, 238, 0.09),
+            rgba(139, 92, 246, 0.10)
+        ),
+        var(--bg-card);
+    box-shadow:
+        0 0 30px rgba(34, 211, 238, 0.08),
+        0 15px 45px rgba(0, 0, 0, 0.25);
+}
+
+.record-box h2 {
+    font-size: 28px;
+    color: #ffffff;
+}
+
+.record-box > p {
+    font-size: 16px;
+}
+
+/* Recording status */
+
+#recordingStatus {
+    display: inline-block;
+    margin: 22px 0 12px;
+    padding: 9px 22px;
+    border-radius: 30px;
+    color: var(--primary);
+    background: rgba(34, 211, 238, 0.09);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    font-weight: 600;
+}
+
+/* Recording buttons */
+
+.record-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+#startRecordBtn {
+    background: linear-gradient(135deg, #22d3ee, #38bdf8);
+    color: #06111f;
+}
+
+#stopRecordBtn {
+    background: linear-gradient(135deg, #fb7185, #ef4444);
+    color: white;
+}
+
+#analyzeRecordBtn {
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+    color: white;
+}
+
+/* Recording timer */
+
+#recordingTime {
+    display: inline-block;
+    min-width: 115px;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-top: 22px;
+    padding: 8px 20px;
+    border-radius: 12px;
+    background: rgba(8, 13, 27, 0.65);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    font-variant-numeric: tabular-nums;
+}
+
+/* Audio preview */
+
+#audioPreview {
+    width: 100%;
+    max-width: 420px;
+    margin: 22px auto 0;
+    display: block;
+}
+
+/* =========================================
+   5. FILE UPLOAD - SECONDARY FEATURE
+========================================= */
+
+.upload-box {
+    border-color: rgba(148, 163, 184, 0.15);
+    background: rgba(15, 23, 42, 0.65);
+}
+
+.upload-box h2 {
+    font-size: 22px;
 }
 
 input[type="file"] {
-    margin: 15px;
-    color: white;
+    display: block;
+    max-width: 100%;
+    margin: 25px auto 15px;
+    padding: 12px;
+    color: var(--muted);
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 #fileName {
-    color: #94a3b8;
-    margin: 10px;
+    color: var(--primary);
+    margin: 12px 0;
+    overflow-wrap: anywhere;
 }
+
+/* =========================================
+   6. COMMON BUTTONS
+========================================= */
 
 button {
-    background: #22c55e;
-    color: white;
     border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
+    outline: none;
+    padding: 14px 25px;
+    margin: 8px;
+    border-radius: 12px;
+    color: #06111f;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 15px;
+    background: linear-gradient(135deg, var(--primary), #60a5fa);
+    box-shadow: 0 5px 20px rgba(34, 211, 238, 0.18);
+    transition: all 0.25s ease;
 }
 
-button:hover {
-    background: #16a34a;
+button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(34, 211, 238, 0.35);
+}
+
+button:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* =========================================
+   7. RESULT SECTION
+========================================= */
+
+.result-box {
+    border-color: rgba(34, 211, 238, 0.25);
 }
 
 #emotion {
-    font-size: 32px;
-    font-weight: bold;
-    color: #22c55e;
-    margin: 15px;
+    display: inline-block;
+    font-size: 34px;
+    font-weight: 800;
+    text-transform: capitalize;
+    margin: 20px 0;
+    background: linear-gradient(90deg, #22d3ee, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.result-box > p {
+    color: var(--muted);
+    font-size: 17px;
 }
 
 #confidence {
-    font-weight: bold;
+    color: var(--primary);
+    font-weight: 800;
 }
-/* Emotion Probability Section */
+
+/* =========================================
+   8. EMOTION ANALYSIS GRID
+========================================= */
+
+.emotion-cards-section {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.emotion-cards-section h3 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.emotion-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    width: 100%;
+}
+
+.emotion-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 22px 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.emotion-card:hover {
+    transform: translateY(-5px);
+    background: rgba(0, 210, 255, 0.10);
+    border-color: #00d2ff;
+    box-shadow: 0 8px 25px rgba(0, 210, 255, 0.12);
+}
+
+.emotion-card.active {
+    border-color: var(--primary);
+    background: rgba(34, 211, 238, 0.13);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.16);
+}
+
+.emotion-card span {
+    display: block;
+    font-size: 34px;
+    margin-bottom: 12px;
+}
+
+.emotion-card h4 {
+    color: #ffffff;
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+.emotion-card p {
+    color: #00d2ff;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px 0 0;
+}
+
+/* =========================================
+   9. PROBABILITY BARS
+========================================= */
 
 .probability-section {
-    margin-top: 30px;
+    margin-top: 35px;
     text-align: left;
 }
 
 .probability-section h3 {
-    margin-bottom: 20px;
     text-align: center;
+    font-size: 21px;
+    margin-bottom: 25px;
 }
 
 #probabilities > div {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-#probabilities p {
-    margin-bottom: 6px;
+.probability-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 15px;
+    margin-bottom: 18px;
     color: #cbd5e1;
     font-size: 14px;
+    font-weight: 600;
     text-transform: capitalize;
 }
 
 .probability-bar {
+    grid-column: 1 / -1;
     width: 100%;
-    height: 10px;
-    background: #334155;
-    border-radius: 10px;
+    height: 11px;
+    background: rgba(148, 163, 184, 0.15);
+    border-radius: 20px;
     overflow: hidden;
 }
 
 .probability-fill {
     height: 100%;
-    background: #22c55e;
-    border-radius: 10px;
+    background: linear-gradient(90deg, #22d3ee, #8b5cf6);
+    border-radius: 20px;
     transition: width 0.8s ease;
+}
+
+/* =========================================
+   10. RECORDING ANIMATION
+========================================= */
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
+    }
+
+    70% {
+        box-shadow: 0 0 0 12px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
+}
+
+#recordingStatus.recording {
+    color: #fb7185;
+    animation: pulse 1.5s infinite;
+}
+
+/* =========================================
+   11. RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 900px) {
+    .emotion-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 94%;
+        padding: 40px 0;
+    }
+
+    .upload-box,
+    .record-box,
+    .result-box {
+        padding: 25px 18px;
+        border-radius: 17px;
+    }
+
+    .upload-box h2,
+    .record-box h2,
+    .result-box h2 {
+        font-size: 21px;
+    }
+
+    .record-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .record-buttons button {
+        width: 100%;
+        margin: 4px 0;
+    }
+
+    #emotion {
+        font-size: 28px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 95%;
+    }
+
+    .upload-box,
+    .record-box,
+    .result-box {
+        padding: 22px 14px;
+    }
+
+    button {
+        width: 100%;
+        margin: 8px 0;
+    }
+
+    #recordingTime {
+        font-size: 24px;
+    }
+
+    .emotion-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .emotion-card {
+        padding: 18px 8px;
+    }
 }

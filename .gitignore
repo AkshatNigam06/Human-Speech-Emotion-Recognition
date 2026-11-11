@@ -1,0 +1,26 @@
+
+# Virtual Environment
+venv/
+.venv/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Original RAVDESS Audio Dataset
+dataset/Audio_Speech_Actors_01-24/
+
+# Temporary Audio Files
+*.webm
+*.mp3
+
+# Environment Variables and Secrets
+.env
+
+# Operating System Files
+.DS_Store
+Thumbs.db

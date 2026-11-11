@@ -1,8 +1,19 @@
+
+import os
 import requests
 
 url = "http://127.0.0.1:5000/predict"
 
-audio_path = "../dataset/Audio_Speech_Actors_01-24/Actor_01/03-01-03-01-01-01-01.wav"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+audio_path = os.path.join(
+    BASE_DIR,
+    "..",
+    "dataset",
+    "Audio_Speech_Actors_01-24",
+    "Actor_01",
+    "03-01-03-01-01-01-01.wav"
+)
 
 with open(audio_path, "rb") as audio:
     files = {
@@ -13,4 +24,8 @@ with open(audio_path, "rb") as audio:
 
 print("Status Code:", response.status_code)
 print("Response:")
-print(response.json())
+
+try:
+    print(response.json())
+except ValueError:
+    print(response.text)
